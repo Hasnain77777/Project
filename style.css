@@ -52,7 +52,7 @@ nav ul li a {
     display: flex;
     align-items: center;
 }
-nav ul li a::after {
+nav ul li a::after, .backButton a::after {
     background-color: #fff;
     bottom: 0;
     content: "";
@@ -63,10 +63,8 @@ nav ul li a::after {
     transform-origin: bottom right;
     transition: transform .5s;
     width: 100%;
-    
-    
 }
-nav ul li a:hover::after {
+nav ul li a:hover::after, .backButton a:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
     opacity: 1;
@@ -80,7 +78,7 @@ nav ul li a:hover::after {
 } */
 .collectionsContainer {
     width: 100%;
-    padding: 70px 3px 50px 3px;    
+    padding: 30px 3px 50px 3px;    
     position: relative;
     
 }
@@ -115,4 +113,28 @@ nav ul li a:hover::after {
     right: 2%;
     cursor: pointer;
     z-index: 11;
+}
+#back{
+    margin: 0 auto;
+}
+#back h1 {
+    font-size: 6.5vw;
+    font-family: General Sans MEdium;
+    word-spacing: 12px;
+}
+.backButton {
+    border: 1px solid #fff;
+    padding: 20px 30px;
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+.backButton a{
+    font-weight: 600;   
+    text-decoration: none;
+    font-family: General Sans;
+    font-size: 1.1rem;
+    max-width: fit-content;
+    position: relative;
+    
 }

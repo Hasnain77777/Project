@@ -1,25 +1,8 @@
-// let headerHeight = document.querySelector('header').offsetHeight;
-// document.querySelector('#slider').style.height = `calc(100vh - ${headerHeight}px)`;
-// let box = $(".inner-container"), x;
-
-// $(".arrow").click(function() {
-//   if ($(this).hasClass("forward")) {
-//     x = ((box.width() / 4)) + box.scrollLeft();
-//     box.animate({
-//       scrollLeft: x,
-//     },200)
-//     console.log(box.scrollLeft());
-//   } else {
-//     x = ((box.width() / 2)) - box.scrollLeft();
-//     box.animate({
-//       scrollLeft: -x,
-//     })
-//   }
-// })
 let innerContainerDiv = document.querySelector('.inner-container');
 let preProduct=[];
 let finalProduct=[]
 let collectionDiv; 
+
 let getProduct = async () => {
     innerContainerDiv.innerHTML=""
     let product = await fetch('https://fakestoreapi.com/products');
@@ -35,60 +18,51 @@ if(window.location.href == "http://127.0.0.1:5500/collections.html"){
       console.log('fd');
       if(!preProduct.includes(element.category)){
         preProduct.push(element.category)
-        innerContainerDiv.innerHTML +=`<a href="collections.html?cat=${element.category}" onclick="storeD(this)" class="collections" data-category=${element.category}>
+        innerContainerDiv.innerHTML +=`
+        <div data-category=${element.category}  onclick="storeD(this)">
         <img src="${element.image}" alt="">
         <h3>${element.category}</h3>
-        </a>`
+        </div>`
       }
     });
   }
+  function storeD(get){
+    storeCategory.push(get.getAttribute('data-category'))
+    window.location.search=`?cat=${get.getAttribute('data-category')}`
+  }
 }
-else{
+else if(window.location.href == `http://127.0.0.1:5500/collections.html${storeCategory[0]}`){
+  storeCategory=[]
   function getProdutFromAbove(){
+    const queryString = window.location.search;
+    const decoded = decodeURI(queryString);
+    const newDecode = decoded.replace('?cat=','')
     finalProduct.forEach(element => {
-    if(finalProduct.includes(element.category) == dataCategory){
+    if(element.category == newDecode){
+      const decoded = decodeURI(queryString);
       preProduct.push(element.category)
-      innerContainerDiv.innerHTML +=`<a href="collections.html?cat=${element.category}"onclick="storeD(this)" class="collections" data-category=${element.category}>
+      innerContainerDiv.innerHTML +=`<a href="products.html?id=${element.id}"onclick="storeD(this)" class="collections" data-category=${element.category}>
       <img src="${element.image}" alt="">
       <h3>${element.category}</h3>
+      <h3>${element.price}$</h3>
       </a>` 
     }
     
   });
-  console.log('fdsf');
   } 
-  
+}
+else{
+  innerContainerDiv.innerHTML =`<div id="back">
+  <h1>PAGE NOT FOUND</h1>
+  <div class="backButton">
+  <a href="collections.html">Back to Collections</a>
+  </div>
+  </div>` 
 }
 
 
 
-// var myObj  = {}
 
 
-
-// var getData =  async () => {
-//   let product = await fetch('https://fakestoreapi.com/products');
-//    let lfinalProduct = await product.json();
-//   //  console.log(lfinalProduct)
-//    myObj = lfinalProduct
-//    setdata(myObj)
-//   return lfinalProduct
- 
-// }
-
-// const setdata = (myObj) => {
-//   console.log(myObj)
-//   for(let el in myObj) {
-//     console.log(el)
-//   }
-//   return myObj
- 
-// }
-// document.addEventListener("DOMContentLoaded", function(event) {
-  
-//   console.log("DOM fully loaded and parsed");
-//   myObj = getData();
-//   console.log(myObj)
-// });
 
 

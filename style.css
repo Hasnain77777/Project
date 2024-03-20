@@ -20,14 +20,14 @@ html,body {
 }
 header {
     width: 100%;
-    padding: 28px 0;
+    padding: 1.4vw 0;
 }
 nav {
     max-width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 40px;
+    padding: 0 2.5vw;
 }
 h1.logo {
     font-family: General Sans Medium;
@@ -37,11 +37,11 @@ nav ul {
     display: flex;
     align-items: center;
     align-items: center;
-    gap: 30px;
+    gap: 2.1vw;
 }
 nav ul li {
     list-style: none;
-    font-size: 1.1rem;
+    font-size: 1.2vw;
 }
 nav ul li a {
     text-decoration: none;
@@ -78,27 +78,59 @@ nav ul li a:hover::after, .backButton a:hover::after {
 } */
 .collectionsContainer {
     width: 100%;
-    padding: 30px 3px 50px 3px;    
+    padding: 80px 50px 30px 50px;    
     position: relative;
     
 }
-.inner-container::-webkit-scrollbar {
-    display: none;
-}
 .inner-container{
-    display: flex;
-    gap: 7px;
-    overflow-x: scroll;
-    scroll-behavior: smooth;
     position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
-.collections {
-    background-color:salmon;
+.inner-container h1 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    font-family: 'General Sans Medium';
+    line-height: 1;
+    letter-spacing: 0.02em;
 }
-.collections img{
-    width: calc(100vw / 4);
-    height: 450px;
-    object-fit: cover;
+#collections {
+    display: flex;
+    justify-content: space-between;
+}
+
+#collections a{
+    width: 24%;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+}
+.inner-container a img{
+    width: 100%;
+    height: 400px;
+}
+.productContent{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.inner-container a h3 {
+    text-transform: capitalize;
+    text-align: center;
+    font-size: 1rem;
+    letter-spacing: 0.035em;
+    line-height: 2rem;
+    margin-top: 10px;
+    
+}
+.priceRate {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    flex-grow: 1;
 }
 .back{
     position: absolute;
@@ -114,27 +146,27 @@ nav ul li a:hover::after, .backButton a:hover::after {
     cursor: pointer;
     z-index: 11;
 }
-#back{
-    margin: 0 auto;
-}
-#back h1 {
+.pageNotFound h1 {
     font-size: 6.5vw;
     font-family: General Sans MEdium;
     word-spacing: 12px;
+    text-transform: uppercase;
+    text-align: center;
 }
 .backButton {
     border: 1px solid #fff;
-    padding: 20px 30px;
+    padding: 1.3vw 2vw;
     width: fit-content;
     margin: 0 auto;
     margin-top: 25px;
+    display: flex;
+    align-items: center;
 }
-.backButton a{
+.backButton a {
     font-weight: 600;   
     text-decoration: none;
     font-family: General Sans;
-    font-size: 1.1rem;
+    font-size: 1.15vw;
     max-width: fit-content;
     position: relative;
-    
 }

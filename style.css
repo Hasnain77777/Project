@@ -99,7 +99,9 @@ nav ul li a:hover::after, .backButton a:hover::after {
 }
 #collections {
     display: flex;
-    justify-content: space-between;
+    column-gap: 18.6px;
+    flex-wrap: wrap;
+    row-gap: 40px;
 }
 
 #collections a{
@@ -116,21 +118,28 @@ nav ul li a:hover::after, .backButton a:hover::after {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    border: 1px solid;
+    background-color: #025959;
+    padding: 0 10px;
+    padding-bottom: 7px;
 }
 .inner-container a h3 {
     text-transform: capitalize;
     text-align: center;
     font-size: 1rem;
     letter-spacing: 0.035em;
-    line-height: 2rem;
-    margin-top: 10px;
-    
+    line-height: 1.5;
+    margin-top: 10px; 
+}
+.categoryName {
+    margin-top: 15px !important;
 }
 .priceRate {
     display: flex;
     justify-content: space-between;
     align-items: end;
     flex-grow: 1;
+    padding-top: 5px;
 }
 .back{
     position: absolute;

@@ -90,7 +90,6 @@ if (window.location.pathname == '/product.html') {
           <img src="${element.image}" alt="">
           <h3 class="categoryName">${element.category}</h3>
           </a>`
-          console.log(element.category);
         }
       }
       );

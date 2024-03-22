@@ -179,3 +179,109 @@ nav ul li a:hover::after, .backButton a:hover::after {
     max-width: fit-content;
     position: relative;
 }
+.productContianer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 90px;
+    padding-top: 70px;
+}
+.imageRow {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 35px;
+}   
+.imageRow img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 11px;
+}
+.nextImage {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+}
+.nextImage img {
+    border-radius: 7px;
+    height: 75px;
+    width: 100px;
+    object-fit: fill;
+    cursor: pointer;
+}
+.contentRow {
+    width: 43%;
+}
+.contentRow p {
+    color: #08c4c4;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-align: right;
+    margin-bottom: 20px;
+}
+.contentRow h2 {
+    font-family: 'General Sans Medium';
+    font-size: 2.2rem;
+    line-height: 1;
+    margin-bottom: 33px;
+    line-height: 3.2rem;
+}
+.contentRow h4 {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    opacity: 0.75;
+    margin-bottom: 25px;
+}
+h3.price {
+    color: #08c4c4;
+    font-size: 1.4rem;
+    margin-bottom: 45px;
+}
+
+.counterCart {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    height: 51px;
+}
+.counter {
+    display: flex;
+    gap: 40px;
+    background-color: #5a9393;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    padding: 0 17px;
+    height: 100%;
+}
+h3.add, h3.subtract {
+    font-size: 1rem;
+    font-weight: 900;
+    font-family: 'General Sans Medium';
+    cursor: pointer;
+}
+h3.update {
+    font-size: 1rem;
+    font-weight: 700;
+    color:rgb(255, 255, 255);
+}
+a.addToCart {
+    display: flex;
+    gap: 10px;
+    text-decoration: none;
+    align-items: center;
+    height: 100%;
+    width: 65%;
+    background-color: #08c4c4;
+    border-radius: 10px;
+    justify-content: center;
+}
+a.addToCart h3{
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+}

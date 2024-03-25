@@ -185,8 +185,7 @@ nav ul li a:hover::after, .backButton a:hover::after {
     width: 100%;
     max-width: 1300px;
     margin: 0 auto;
-    padding: 90px;
-    padding-top: 70px;
+    padding:0 90px;
 }
 .imageRow {
     width: 48%;
@@ -270,7 +269,7 @@ h3.update {
     font-weight: 700;
     color:rgb(255, 255, 255);
 }
-a.addToCart {
+.addToCart {
     display: flex;
     gap: 10px;
     text-decoration: none;
@@ -280,8 +279,12 @@ a.addToCart {
     background-color: #08c4c4;
     border-radius: 10px;
     justify-content: center;
+    cursor:pointer;
 }
-a.addToCart h3{
+.addToCart h3{
     font-size: 1rem;
     letter-spacing: 0.02em;
+}
+.disableCursor {
+    cursor:not-allowed;
 }

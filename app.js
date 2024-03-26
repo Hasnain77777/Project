@@ -11,6 +11,7 @@ let collectionsDiv = document.querySelector('#collections');
 let preProduct = [];
 let finalProduct = []
 let update = 0;
+let globalI=0;
 let getProduct = async () => {
   let product = await fetch('https://fakestoreapi.com/products');
   finalProduct = await product.json();
@@ -97,13 +98,15 @@ function afterAsync() {
     }
   }
   if (window.location.pathname == '/cart.html') {
+
+    let storedData = JSON.parse(localStorage.getItem('Product_selet')) || [];
     let keyIdArray = JSON.parse(localStorage.getItem('key_id')) || [];
     let numericArray = keyIdArray.map(Number);
     finalProduct.forEach(element => {
       let valueToCheck = element.id;
       let elementExists = numericArray.includes(valueToCheck);
       if (elementExists) {
-        let cartHTML = `<div class="purchase-row">
+        let cartHTML = `<div class="purchase-row"" id="none${globalI}">
         <div class="row-top-img">
             <img src="./assets/sports-shoe-pair-design-illustration-generated-by-ai_188544-19642.avif" alt="White upholstered chair accompanied by a cushion with light wooden legs" class="item-img">
         </div>
@@ -113,7 +116,7 @@ function afterAsync() {
                     <h3 class="item-name">${element.title}</h3>
                 </div>
                 <div class="row-top-remove">
-                    <h4 class="item-remove" data-id="id${element.id}" onclick="itemRemove(this)">X</h4>
+                    <h4 class="item-remove" id="${globalI}" onclick="itemRemove(this.id)">X</h4>
                 </div>
             </div>
             <div class="row-down row">
@@ -121,22 +124,28 @@ function afterAsync() {
                     <h3 class="item-price">$${element.price}</h3>
                 </div>
                 <div class="row-down-amount">
-                    <input type="button" value="-" class="item-sign minun-sign" onclick="subtract()">
-                    <h3 class="update">0</h3>
-                    <input type="button" value="+" class="item-sign plus-sign" onclick="add()">
+                    <input type="button" value="-" class="item-sign minun-sign" onclick="minus('${globalI}')">
+                    <h3 class="change" id='${globalI}'>${storedData[globalI].value}</h3>
+                    <input type="button" value="+" class="item-sign plus-sign" onclick="plus('${globalI}')">
                 </div>
             </div>
         </div>
         </div>`
+        
         document.querySelector('.purchase').insertAdjacentHTML('beforeend', cartHTML);
         document.querySelector('.noItens').classList.add('display')
         document.querySelectorAll('.display').forEach(function (element) {
           element.classList.remove('display');
         });
+        globalI++;
       }
     });
   }
+
 }
+let existingArray = JSON.parse(localStorage.getItem('key_id')) || [];
+let storedData = JSON.parse(localStorage.getItem('Product_selet')) || Product_selet;
+
 function subtract() {
   if (update > 0) {
     update--;
@@ -159,17 +168,62 @@ function changeImage(src) {
 function updateCart() {
   if (update !== 0) {
     let getID = window.location.search.replace('?id=', '');
-    let existingArray = JSON.parse(localStorage.getItem('key_id')) || [];
     const condition = !existingArray.includes(getID);
     if (condition) {
-      let newData = getID;
-      existingArray.push(newData);
+      existingArray.push(getID);
       localStorage.setItem('key_id', JSON.stringify(existingArray));
     }
+
+    let seletedProduct = JSON.parse(localStorage.getItem('Product_selet')) || [];
+    const productCondition = !seletedProduct.some(element => element.id === getID);
+
+    if (productCondition) {
+      seletedProduct.push({ id: getID, value: update });
+      localStorage.setItem('Product_selet', JSON.stringify(seletedProduct));
+    }
   }
+
 }
-function itemRemove(element) {
-  let arrayLength = existingArray.length
-  console.log(arrayLength);
+function itemRemove(get) {
+  document.getElementById(`none${get}`).remove()
 }
 
+function minus(get) { 
+    if(storedData[get].value > 0){
+      console.log(globalI);
+      storedData[get].value--; 
+      localStorage.setItem('Product_selet', JSON.stringify(storedData));
+      document.getElementById(`${get}`).innerHTML=storedData[get].value
+      if(storedData[get].value == 0){
+        document.getElementById(`none${get}`).remove()
+        storedData[get]='';
+        localStorage.setItem('Product_selet', JSON.stringify(storedData));
+        existingArray[get]='';
+        localStorage.setItem('key_id', JSON.stringify(storedData));
+      }
+    }
+    if (storedData.every(item => item === '')) {
+      localStorage.removeItem('Product_selet');
+      document.querySelector('.main').remove();
+    }
+    if(existingArray.every(item => item === '')){
+      localStorage.removeItem('key_id');
+    }
+}
+function plus(get) {
+  if(storedData[get].value < 5){
+    storedData[get].value++; 
+    localStorage.setItem('Product_selet', JSON.stringify(storedData));
+    document.getElementById(`${get}`).innerHTML=storedData[get].value
+  }
+}
+function noting(getID) {
+  
+  for (let i = 0; i < storedData.length; i++) {
+    if (storedData[i].id === getID) {
+      let a = storedData[i].value;
+      return a;
+    }
+  }
+  return 0;
+}

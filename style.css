@@ -371,9 +371,11 @@ h3.update {
     border-radius: 16px;
     border: 1px solid #d9d9d9;
     margin-bottom: 1rem;
+    z-index: 11;
+    position: relative;
 }
 .row-top-img {
-    width: auto;
+    width: 31%;
     max-height: 8em;
     height: 100%;
     border-radius: 8px 0 0 8px;
@@ -382,9 +384,10 @@ h3.update {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 8px 0 0 8px;
+    border-radius: 16px 0 0 16px;
 }
 .row-wrap {
+    width: 69%;
     height: 100%;
     display: flex;
     flex-flow: nowrap column;
@@ -405,6 +408,8 @@ h3.update {
 .row-top-remove {
     width: 10%;
     padding-top: 2px;
+    display: flex;
+    justify-content: flex-end;
 }
 .item-remove, .item-sign {
     width: 1.5rem;
@@ -431,7 +436,7 @@ h3.update {
     align-items: center;
     justify-content: space-between;
 }
-.row-down-amount h3.update {
+.change {
     display: flex;
     align-items: center;
     justify-content: center;

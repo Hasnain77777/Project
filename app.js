@@ -90,7 +90,7 @@ function afterAsync() {
               <p>Rating: ${element.rating.rate}</p>
               <h2>${element.title}</h2>
               <h4>${element.description}</h4>
-              <h3 class="price">$${element.price}</h3>
+              <h3 class="price">$ <span id="sendPrice">${element.price}</span></h3>
           `;
           contentRow.insertAdjacentHTML('afterbegin', newHTML);
         }
@@ -98,7 +98,6 @@ function afterAsync() {
     }
   }
   if (window.location.pathname == '/cart.html') {
-
     let storedData = JSON.parse(localStorage.getItem('Product_selet')) || [];
     let keyIdArray = JSON.parse(localStorage.getItem('key_id')) || [];
     let numericArray = keyIdArray.map(Number);
@@ -116,7 +115,7 @@ function afterAsync() {
                     <h3 class="item-name">${element.title}</h3>
                 </div>
                 <div class="row-top-remove">
-                    <h4 class="item-remove" id="${globalI}" onclick="itemRemove(this.id)">X</h4>
+                    <h4 class="item-remove" id="remove${globalI}" onclick="itemRemove(${globalI})">X</h4>
                 </div>
             </div>
             <div class="row-down row">
@@ -145,7 +144,15 @@ function afterAsync() {
 }
 let existingArray = JSON.parse(localStorage.getItem('key_id')) || [];
 let storedData = JSON.parse(localStorage.getItem('Product_selet')) || Product_selet;
-
+for (let index = existingArray.length - 1; index >= 0; index--) {
+  const element = existingArray[index];
+  if (element === '') {
+    existingArray.splice(index, 1);
+    storedData.splice(index, 1);
+    localStorage.setItem('key_id', JSON.stringify(existingArray));
+    localStorage.setItem('Product_selet', JSON.stringify(storedData));
+  }
+}
 function subtract() {
   if (update > 0) {
     update--;
@@ -178,19 +185,26 @@ function updateCart() {
     const productCondition = !seletedProduct.some(element => element.id === getID);
 
     if (productCondition) {
-      seletedProduct.push({ id: getID, value: update });
+      let sendPriceText = document.getElementById('sendPrice').textContent;
+      console.log(sendPriceText);
+      seletedProduct.push({ id: getID, value: update, price: update*sendPriceText});
       localStorage.setItem('Product_selet', JSON.stringify(seletedProduct));
     }
   }
 
 }
 function itemRemove(get) {
-  document.getElementById(`none${get}`).remove()
+  document.getElementById(`none${get}`).remove();
+  storedData[get]='';
+  localStorage.setItem('Product_selet', JSON.stringify(storedData));
+  existingArray[get]='';
+  localStorage.setItem('key_id', JSON.stringify(existingArray));
+  if (storedData.every(item => item === '')) {
+    document.querySelector('.main').remove();
+  }
 }
-
 function minus(get) { 
     if(storedData[get].value > 0){
-      console.log(globalI);
       storedData[get].value--; 
       localStorage.setItem('Product_selet', JSON.stringify(storedData));
       document.getElementById(`${get}`).innerHTML=storedData[get].value
@@ -199,16 +213,13 @@ function minus(get) {
         storedData[get]='';
         localStorage.setItem('Product_selet', JSON.stringify(storedData));
         existingArray[get]='';
-        localStorage.setItem('key_id', JSON.stringify(storedData));
+        localStorage.setItem('key_id', JSON.stringify(existingArray));
       }
     }
     if (storedData.every(item => item === '')) {
-      localStorage.removeItem('Product_selet');
       document.querySelector('.main').remove();
     }
-    if(existingArray.every(item => item === '')){
-      localStorage.removeItem('key_id');
-    }
+    totalPrice();
 }
 function plus(get) {
   if(storedData[get].value < 5){
@@ -217,13 +228,12 @@ function plus(get) {
     document.getElementById(`${get}`).innerHTML=storedData[get].value
   }
 }
-function noting(getID) {
-  
-  for (let i = 0; i < storedData.length; i++) {
-    if (storedData[i].id === getID) {
-      let a = storedData[i].value;
-      return a;
-    }
-  }
-  return 0;
+
+function totalPrice(){
+  let t_price = 0
+  storedData.forEach(element => {
+    t_price+= element.price;
+  })
+  document.querySelector('h3.total-price').innerHTML='$'+t_price;
 }
+totalPrice();

@@ -460,7 +460,7 @@ h3.update {
     display: grid;
     justify-content: center;
 }
-.display{
+#display{
     display: none;
 }
 @media (min-width: 1441px) and (max-width: 1920px){

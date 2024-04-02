@@ -130,9 +130,7 @@ function afterAsync() {
             </div>
         </div>
         </div>`
-        
         document.querySelector('.purchase').insertAdjacentHTML('beforeend', cartHTML);
-        document.querySelector('.noItens').classList.add('display')
         document.querySelectorAll('.display').forEach(function (element) {
           element.classList.remove('display');
         });
@@ -142,6 +140,8 @@ function afterAsync() {
   }
 
 }
+
+
 let existingArray = JSON.parse(localStorage.getItem('key_id')) || [];
 let storedData = JSON.parse(localStorage.getItem('Product_selet')) || Product_selet;
 for (let index = existingArray.length - 1; index >= 0; index--) {
@@ -161,6 +161,7 @@ function subtract() {
   if (update == 0) {
     document.querySelector('.addToCart').classList.add("disableCursor")
   }
+  
 }
 function add() {
   if (update < 5) {
@@ -186,7 +187,6 @@ function updateCart() {
 
     if (productCondition) {
       let sendPriceText = document.getElementById('sendPrice').textContent;
-      console.log(sendPriceText);
       seletedProduct.push({ id: getID, value: update, price: update*sendPriceText});
       localStorage.setItem('Product_selet', JSON.stringify(seletedProduct));
     }
@@ -195,45 +195,75 @@ function updateCart() {
 }
 function itemRemove(get) {
   document.getElementById(`none${get}`).remove();
-  storedData[get]='';
+  console.log(typeof(storedData));
+  storedData.splice(get, 1);
   localStorage.setItem('Product_selet', JSON.stringify(storedData));
+  totalPrice()
   existingArray[get]='';
   localStorage.setItem('key_id', JSON.stringify(existingArray));
   if (storedData.every(item => item === '')) {
     document.querySelector('.main').remove();
   }
+  updateCartDisplay()
 }
 function minus(get) { 
-    if(storedData[get].value > 0){
-      storedData[get].value--; 
+  let getPrice = storedData[get].price
+  let productPrice = getPrice/storedData[get].value;
+  getPrice-=productPrice
+  storedData[get].price=getPrice.toFixed(2)
+  localStorage.setItem('Product_selet', JSON.stringify(storedData));
+  totalPrice();
+  if(storedData[get].value > 0){
+    storedData[get].value--; 
+    localStorage.setItem('Product_selet', JSON.stringify(storedData));
+    document.getElementById(`${get}`).innerHTML=storedData[get].value
+    if(storedData[get].value == 0){
+      document.getElementById(`none${get}`).remove()
+      storedData[get]='';
       localStorage.setItem('Product_selet', JSON.stringify(storedData));
-      document.getElementById(`${get}`).innerHTML=storedData[get].value
-      if(storedData[get].value == 0){
-        document.getElementById(`none${get}`).remove()
-        storedData[get]='';
-        localStorage.setItem('Product_selet', JSON.stringify(storedData));
-        existingArray[get]='';
-        localStorage.setItem('key_id', JSON.stringify(existingArray));
-      }
+      existingArray[get]='';
+      localStorage.setItem('key_id', JSON.stringify(existingArray));
     }
-    if (storedData.every(item => item === '')) {
-      document.querySelector('.main').remove();
-    }
-    totalPrice();
+  }
+  if (storedData.every(item => item === '')) {
+    document.querySelector('.main').remove();
+  }
+  updateCartDisplay() 
 }
 function plus(get) {
   if(storedData[get].value < 5){
+    let getPrice = storedData[get].price
+    let unitPrice = getPrice/storedData[get].value;
+    getPrice=Number(getPrice)+Number(unitPrice);
+    storedData[get].price=getPrice.toFixed(2)
+    localStorage.setItem('Product_selet', JSON.stringify(storedData));
+    totalPrice()
     storedData[get].value++; 
     localStorage.setItem('Product_selet', JSON.stringify(storedData));
     document.getElementById(`${get}`).innerHTML=storedData[get].value
   }
 }
-
-function totalPrice(){
-  let t_price = 0
-  storedData.forEach(element => {
-    t_price+= element.price;
-  })
-  document.querySelector('h3.total-price').innerHTML='$'+t_price;
+if (window.location.pathname == '/cart.html') {
+  function totalPrice(){
+    let t_price = 0
+    
+    storedData.forEach(element => {
+      t_price=Number(t_price)+Number(element.price);
+    })
+    document.querySelector('h3.total-price').innerHTML=`$${t_price.toFixed(2)}`;
+  }
+  totalPrice();
+  
+  function updateCartDisplay(){
+    if(storedData.length !== 0){
+      document.querySelector('.main').removeAttribute('id');
+  
+    }
+    else {
+      console.log('23');
+      document.querySelector('.noItens').removeAttribute('id');
+      document.querySelector('.main').id = "display";  
+    }
+  }
+  updateCartDisplay()
 }
-totalPrice();

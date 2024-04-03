@@ -243,14 +243,16 @@ function plus(get) {
     document.getElementById(`${get}`).innerHTML=storedData[get].value
   }
 }
-if (window.location.pathname == '/cart.html') {
+// if (window.location.pathname == '/cart.html') {
   function totalPrice(){
     let t_price = 0
     
     storedData.forEach(element => {
       t_price=Number(t_price)+Number(element.price);
     })
-    document.querySelector('h3.total-price').innerHTML=`$${t_price.toFixed(2)}`;
+    let finalPrice = t_price.toFixed(2)
+    document.querySelector('h3.total-price').innerHTML=`$${finalPrice}`;
+    return finalPrice;
   }
   totalPrice();
   
@@ -266,4 +268,12 @@ if (window.location.pathname == '/cart.html') {
     }
   }
   updateCartDisplay()
+// }
+function gotto(){
+  let store = totalPrice();
+  return store
+}
+export function totalthrow() {
+  let grt = totalPrice()
+  return grt;
 }

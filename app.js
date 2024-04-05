@@ -270,10 +270,17 @@ function plus(get) {
   updateCartDisplay()
 // }
 function gotto(){
+  if(localStorage.getItem('key')){
+    document.querySelector('a.total-btn').href="./checkout_form.html" 
+  }
+  else {
+    window.location.pathname = './login.html'    
+  }
   let store = totalPrice();
   return store
 }
-export function totalthrow() {
-  let grt = totalPrice()
-  return grt;
+
+if (window.location.pathname !== "/login.html") {
+  console.log('fasdfadsfad');
+  localStorage.setItem('from', window.location.href);
 }

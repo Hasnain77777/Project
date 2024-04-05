@@ -27,7 +27,7 @@
                     <input type="password" id="password" placeholder="Password" required value="Jack"/>
                     <button type="submit">Sign Up</button>
                 </form> -->
-                <form id="signupForm" onsubmit="saveSignUpData()">
+                <form action="#" id="signupForm" onsubmit="saveSignUpData()">
                     <h1 class="fheading">Sign up</h1>
                     <span>Create your account</span>
                     <input type="text" id="name" placeholder="Name" required value="Jack"/>
@@ -44,8 +44,8 @@
                         <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                         <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                     </div>
-                    <input type="email" id="email" placeholder="Email" required/>
-                    <input type="password" id="password" placeholder="Password" required/>
+                    <input type="email" id="lemail" placeholder="Email" required/>
+                    <input type="password" id="lpassword" placeholder="Password" required/>
                     <a href="#">Forgot your password?</a>
                     <button type="submit">Sign In</button>
                 </form>
@@ -67,7 +67,13 @@
             </div>
         </div>
     </div>
-
+    <div style="display: flex; align-items: center; justify-self: center;">
+        <div class="alerdyLogin">
+            <i class="fa-regular fa-circle-xmark"></i>
+            <i class="fa-solid fa-circle-check"></i>
+            <h3>ALerdy Loged in</h3>
+        </div>
+    </div>
 
     <script src="./app.js"></script>
     <script src="./forms.js"></script>

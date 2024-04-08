@@ -1,12 +1,29 @@
+let existingArray = JSON.parse(localStorage.getItem('key_id')) || [];
+let storedData = JSON.parse(localStorage.getItem('Product_selet')) || [];
+
+/*<li><a href="./login.html" >Login</a></li>*/
 document.querySelector('header').innerHTML = `
 <nav>
   <h1 class="logo"> LOGO</h1><!-- <img src="\" alt=""> -->
   <ul>
     <li><a href="collections.html">Collections</a></li>
     <li><a href="product.html">Products</a></li>
-    <li><a href="./cart.html" class="listCart">Cart<span><span></a></li>
+    <li><a href="./cart.html" class="listCart">Cart<span class="cartValue"><span></a></li>
   </ul>
 </nav>`
+
+function cartNumber() {
+  let count = existingArray.filter(element => element !== '').length;
+  if(count !== 0){
+    
+    document.querySelector('.listCart span').innerHTML = count;
+  }
+  if(count == 0){
+    document.querySelector('.listCart span').innerHTML = '';
+    document.querySelector('.listCart span').classList.remove('cartValue')
+  }
+}
+cartNumber()
 let collectionsDiv = document.querySelector('#collections');
 let preProduct = [];
 let finalProduct = []
@@ -98,7 +115,6 @@ function afterAsync() {
     }
   }
   if (window.location.pathname == '/cart.html') {
-    let storedData = JSON.parse(localStorage.getItem('Product_selet')) || [];
     let keyIdArray = JSON.parse(localStorage.getItem('key_id')) || [];
     let numericArray = keyIdArray.map(Number);
     finalProduct.forEach(element => {
@@ -142,8 +158,7 @@ function afterAsync() {
 }
 
 
-let existingArray = JSON.parse(localStorage.getItem('key_id')) || [];
-let storedData = JSON.parse(localStorage.getItem('Product_selet')) || Product_selet;
+
 for (let index = existingArray.length - 1; index >= 0; index--) {
   const element = existingArray[index];
   if (element === '') {
@@ -180,6 +195,8 @@ function updateCart() {
     if (condition) {
       existingArray.push(getID);
       localStorage.setItem('key_id', JSON.stringify(existingArray));
+      document.querySelector('.listCart span').classList.add('cartValue');
+      document.querySelector('.listCart span').innerHTML=existingArray.length
     }
 
     let seletedProduct = JSON.parse(localStorage.getItem('Product_selet')) || [];
@@ -201,10 +218,12 @@ function itemRemove(get) {
   totalPrice()
   existingArray[get]='';
   localStorage.setItem('key_id', JSON.stringify(existingArray));
+  cartNumber()
   if (storedData.every(item => item === '')) {
     document.querySelector('.main').remove();
   }
   updateCartDisplay()
+  
 }
 function minus(get) { 
   let getPrice = storedData[get].price
@@ -223,6 +242,7 @@ function minus(get) {
       localStorage.setItem('Product_selet', JSON.stringify(storedData));
       existingArray[get]='';
       localStorage.setItem('key_id', JSON.stringify(existingArray));
+      cartNumber()
     }
   }
   if (storedData.every(item => item === '')) {
@@ -259,10 +279,9 @@ function plus(get) {
   function updateCartDisplay(){
     if(storedData.length !== 0){
       document.querySelector('.main').removeAttribute('id');
-  
+      document.querySelector('.noItens').id = "display"
     }
     else {
-      console.log('23');
       document.querySelector('.noItens').removeAttribute('id');
       document.querySelector('.main').id = "display";  
     }

@@ -44,10 +44,12 @@
                         <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                         <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                     </div>
-                    <input type="email" id="lemail" placeholder="Email" required/>
-                    <input type="password" id="lpassword" placeholder="Password" required/>
-                    <a href="#">Forgot your password?</a>
+                    <input type="email" id="lemail" placeholder="Email" onkeydown="nullValue(this.nextElementSibling)"/>
+                    <p class="error-message" id="emailnotmach" style="display: none"><i class="fa-solid fa-circle-exclamation" style="color: #ff0000;"></i> Email not found</p>
+                    <input type="password" id="lpassword" placeholder="Password" onkeydown="nullValue(this.nextElementSibling)">
+                    <p class="error-message" id="passwordIncorrect" style="display: none"><i class="fa-solid fa-circle-exclamation" style="color: #ff0000;"></i> Password is incorrect</p>  <a href="#">Forgot your password?</a>
                     <button type="submit">Sign In</button>
+                    
                 </form>
                 
             </div>
@@ -67,12 +69,8 @@
             </div>
         </div>
     </div>
-    <div style="display: flex; align-items: center; justify-self: center;">
-        <div class="alerdyLogin">
-            <i class="fa-regular fa-circle-xmark"></i>
-            <i class="fa-solid fa-circle-check"></i>
-            <h3>ALerdy Loged in</h3>
-        </div>
+    <div class="alerdyLoginDiv">
+        
     </div>
 
     <script src="./app.js"></script>

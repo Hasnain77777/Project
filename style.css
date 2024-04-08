@@ -69,6 +69,22 @@ nav ul li a:hover::after, .backButton a:hover::after {
     transform-origin: bottom left;
     opacity: 1;
 }
+.cartValue {
+    background-color: white;
+    border-radius: 50%;
+    color: black;
+    position: absolute;
+    left: 109%;
+    top: -10%;
+    font-size: 0.7rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.15rem;
+    height: 1.15rem;
+    font-family: General Sans Medium;
+}
 /* #slider {
     background-color: #1b1919 !important;
     width: 100%;
